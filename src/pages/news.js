@@ -12,10 +12,10 @@ const NewsPage = {
             <section class="grid grid-cols-3 gap-8">
                 ${
                     newsList.map(function(post){
-                        return `
+                        return /*html*/`
                             <div>
-                                <img src="${post.image}" alt="" class="w-full"/>
-                                <h3>${post.title}</h3>
+                                <a href="/news/${post.id}"><img src="${post.image}" alt="" class="w-full"/></a>
+                                <a href="/news/${post.id}"><h3>${post.title}</h3></a>
                                 <p>${post.desc}</p>
                             </div>
                         `
