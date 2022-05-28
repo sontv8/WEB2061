@@ -3,11 +3,11 @@ import Header from "../components/Header"
 import newsList from "../data"
 
 const DetailPage = {
-    render(){
+    render(id){
         const post = newsList.find(function(item){
-            return item.id == 3
+            return item.id == id
         })
-        console.log(post);
+        // console.log(post);
         return /*html*/`
             <header>
                 ${Header.render()}

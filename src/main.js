@@ -5,8 +5,8 @@ import NewsPage from "./pages/news";
 import DetailPage from "./pages/detail-post";
 
 const router = new Navigo("/",{linksSelector:"a"})
-const print = function(content){
-  document.querySelector("#app").innerHTML = content.render();
+const print = function(content,id){
+  document.querySelector("#app").innerHTML = content.render(id);
 }
 
 router.on({
@@ -19,8 +19,9 @@ router.on({
   "/news": function(){
     print(NewsPage)
   },
-  "/news/:id" : function(){
-    print(DetailPage)
+  "/news/:id" : function(value){
+    console.log(value.data.id)
+    print(DetailPage,value.data.id)
   }
 })
 
