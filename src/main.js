@@ -5,8 +5,8 @@ import NewsPage from "./pages/news";
 import DetailPage from "./pages/detail-post";
 
 const router = new Navigo("/",{linksSelector:"a"})
-const print = function(content,id){
-  document.querySelector("#app").innerHTML = content.render(id);
+const print = async function(content,id){
+  document.querySelector("#app").innerHTML = await content.render(id);
 }
 
 router.on({
