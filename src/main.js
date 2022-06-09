@@ -4,12 +4,13 @@ import AboutPage from "./pages/about";
 import NewsPage from "./pages/news";
 import DetailPage from "./pages/detail-post";
 import AddNewPost from "./pages/add-new-post";
+import UpdateNewPost from "./pages/update-new-post";
 
 const router = new Navigo("/",{linksSelector:"a"})
 const print = async function(content,id){
   document.querySelector("#app").innerHTML = await content.render(id);
   if(content.afterRender){
-    content.afterRender()
+    content.afterRender(id)
   }
 }
 
@@ -29,6 +30,9 @@ router.on({
   },
   "/admin/post/add": function(){
     print(AddNewPost)
+  },
+  "/admin/post/:id/update": function(value){
+    print(UpdateNewPost,value.data.id)
   }
 })
 
