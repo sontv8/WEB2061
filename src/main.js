@@ -5,6 +5,7 @@ import NewsPage from "./pages/news";
 import DetailPage from "./pages/detail-post";
 import AddNewPost from "./pages/add-new-post";
 import UpdateNewPost from "./pages/update-new-post";
+import ManageNewsPost from "./pages/manage-news-post";
 
 const router = new Navigo("/",{linksSelector:"a"})
 const print = async function(content,id){
@@ -33,6 +34,9 @@ router.on({
   },
   "/admin/post/:id/update": function(value){
     print(UpdateNewPost,value.data.id)
+  },
+  "/admin/post":function(){
+    print(ManageNewsPost)
   }
 })
 
