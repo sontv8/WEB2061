@@ -5,14 +5,14 @@ import { reRender } from "../utils/reRender"
 
 const ManageNewsPost = {
     async render(){
-        const response = await getAll()
-        const data = response.data
+        const response = await getAll() //gọi hàm getAll từ folder api
+        const data = response.data // đổ dữ liệu vào biến data
         return /*html*/`
             <header>
                 ${Header.render()}
             </header>
             <main>
-                <a href="/#/product/add" data-navigo class="btn btn-primary">Add product</a>
+                <a href="/admin/post/add" class="btn btn-primary bg-blue-700 text-white px-4 py-2 mb-8 inline-block">Add product</a> 
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -24,24 +24,23 @@ const ManageNewsPost = {
                     </thead>
                     <tbody>
 
-                    ${data
-                        .map(
-                            (item, index) => /*html*/ `
-                                <tr>
-                                    <td>${index + 1}</td>
-                                    <td>${item.title}</td>
-                                    <td>${item.content}</td>
-                                    <td>
-                                        <button class="btn btn-remove bg-red-600 text-white px-4 py-2" data-id=${
-                                            item.id
-                                        }>Remove</button>
-                                        <a href="/admin/post/${
-                                            item.id
-                                        }/update" class="btn bg-green-600 text-white px-4 py-2">Update</a>
-                                    </td>
-                                </tr>`
-                        )
-                        .join('')}
+                        ${data
+                            .map(
+                                (item, index) => /*html*/ `
+                                    <tr>
+                                        <td>${index + 1}</td>
+                                        <td>${item.title}</td>
+                                        <td>${item.content}</td>
+                                        <td>
+                                            <button class="btn btn-remove bg-red-600 text-white px-4 py-2" data-id=${
+                                                item.id
+                                            }>Remove</button>
+                                            <a href="/admin/post/${
+                                                item.id
+                                            }/update" class="btn bg-green-600 text-white px-4 py-2">Update</a>
+                                        </td>
+                                    </tr>`
+                            ).join('')}
                         
                     </tbody>
                 </table>
@@ -52,17 +51,15 @@ const ManageNewsPost = {
         `
     },
     afterRender() {
-        const btns = document.querySelectorAll('table .btn'); // nodeList=[btn]
+        const btns = document.querySelectorAll('table .btn'); // tìm tất cả button trong table
         for (let btn of btns) {
-            // lấy thuộc tính data-id của button
-            const id = btn.dataset.id;
-            // event click
-            btn.addEventListener('click', async function () {
-                if (btn.classList.contains('btn-remove')) {
+            const id = btn.dataset.id; // lấy thuộc tính data-id của button
+            btn.addEventListener('click', async function () { //thêm sự kiện click cho button
+                if (btn.classList.contains('btn-remove')) { //kiểm tra xem button có chứa class btn-remove hay không, nếu có mới thực hiện việc bên dưới
                     const confirm = window.confirm('Bạn có chắc chắn xóa không?');
                     if (confirm) {
-                        const { data } = await remove(id);
-                        reRender('app', ManageNewsPost);
+                        const { data } = await remove(id); //gọi hàm xóa từ folder api
+                        reRender('app', ManageNewsPost); // gọi hàm reRender từ folder utils để thực hiện việc hiển thị lại trang sau khi đã xóa
                         if (data) {
                             console.log('delete thành công');
                         }
